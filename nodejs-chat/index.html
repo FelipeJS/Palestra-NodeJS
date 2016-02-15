@@ -1,0 +1,56 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        
+        $(function(){
+            var iosocket = io.connect();
+ 
+            iosocket.on('connect', function () {
+                $('#incomingChatMessages').append($('<div>Connected</div>'));
+                $.get('/api/obter-mensagens').done(function(response){
+                    for(i in response){
+                        var mensagem = response[i];
+                        $('#incomingChatMessages').append($('<div></div>').text(function(){
+                            return "["+mensagem.timestamp+" - "+mensagem.usuario+"]"+": "+mensagem.mensagem;
+                        }));
+                    }
+                });
+ 
+                iosocket.on('message', function(usuario, mensagem) {
+                    $('#incomingChatMessages').append($('<div></div>').text(function(){
+                        return "["+new Date().getTime() +" - "+usuario+"]"+": "+mensagem;
+                    }));
+                    
+                });
+                iosocket.on('disconnect', function() {
+                    $('#incomingChatMessages').append('<div>Disconnected</div>');
+                });
+            });
+            
+            $('#sendMessage').click(function(){
+                var mensagem = $('#outgoingChatMessage').val();
+                var usuario = $('#outgoingUser').val();
+                iosocket.send(mensagem, usuario);
+                $('#incomingChatMessages').append($('<div></div>').text(function(){
+                    return "["+new Date().getTime() +" - "+usuario+"]"+": "+mensagem;
+                }));
+               // $('#incomingChatMessages').append('<div>['+new Date()+' - '+usuario+']: '+mensagem+'</div>');
+                $('#outgoingChatMessage').val('');
+            });
+        });
+    </script>
+
+</head>
+<body>
+Incoming Chat: <div id="incomingChatMessages" ><div>
+
+
+<input type="text" id="outgoingChatMessage" placeholder='Mensagem'>
+<input type="text" id="outgoingUser" placeholder='Usuario'>
+<input type='button' value='Enviar' id='sendMessage'>
+    
+</body>
+    
+</html>

@@ -1,0 +1,93 @@
+#Life {
+            position: fixed;
+            left: 50%;
+            margin-left: -400px;
+        }
+
+        h4 {
+            padding: 5px 30px 2px 50px;
+            position: relative;
+            margin: auto;
+            font-family: 'Comic Sans MS';
+        }
+
+        input {
+            border: solid 2px #1dd7f1;
+            margin-left: 3px;
+            border-radius: 4px;
+        }
+
+        body {
+            background-image: url('http://slateman.net/images/gaming/backgrounds/sfz3-dhalsim.gif');
+            background-size: 1900px auto;
+            background-position: bottom top;
+        }
+
+        #Jogadores {
+            position: absolute;
+            top: 50%;
+            margin-top: -100px;
+            left: 50%;
+            margin-left: -450px;
+        }
+
+        .Jogador1 img {
+            width: 15em;
+            height: 19em;
+            margin-top: 100px;
+            position: fixed;
+        }
+
+        .Jogador2 img {
+            width: 15em;
+            height: 19em;
+            position: fixed;
+            margin-top: 100px;
+            margin-left: 650px;
+            -webkit-transform: rotateY(180deg);
+        }
+
+        #Life1 {
+            position: fixed;
+            border: 3px solid black;
+            border-radius: 4px;
+            height: 3em;
+            width: 25em;
+            background-color: #e61f1f;
+        }
+
+        #Life2 {
+            border: 3px solid black;
+            border-radius: 4px;
+            position: fixed;
+            margin-left: 450px;
+            height: 3em;
+            width: 25em;
+            background-color: #e61f1f;
+        }
+
+        .Chat {
+            background-color: aquamarine;
+            border-radius: 4px;
+            border: 3px solid #43e81b;
+            margin-top: 60px;
+            position: fixed;
+            margin-left: 60px;
+        }
+
+        button {
+            background-color: aliceblue;
+            border-radius: 4px;
+            border: 3px solid #1dd7f1;
+            font-family: 'Comic Sans MS';
+            margin-top: 120px;
+            margin-left: 20px;
+        }
+
+        span {
+            font-family: 'Comic Sans MS';
+            font: bold;
+            font-size: 2em;
+            padding: 5px 5px 7px 150px;
+            color: yellow;
+        }

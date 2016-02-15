@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FightGame</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link type="text/css" href="StyleSheet.css" rel="stylesheet" />
+    <script type="text/javascript" src="Script.js"></script>
+</head>
+<body>
+
+    <div class="Chat" id="Login">
+        <h4>Nickname</h4>
+        <input type="text" id="Nome" />
+    </div>
+
+    <div id="Life">
+        <div id="Life1"><span>Player 1</span></div>
+        <div id="Life2"><span>Player 2</span></div>
+    </div>
+
+    <div id="Jogadores">
+        <div class="Jogador1">
+            <img id="parado" src="http://www.fightersgeneration.com/characters3/sean-ts-stance.gif " />
+            <img id="chute" src="http://www.fightersgeneration.com/characters3/sean-fhk.gif" />
+            <img id="cabeca" src="http://www.fightersgeneration.com/characters3/sean-fhp.gif" />
+            <img id="soco" src="http://www.fightersgeneration.com/characters3/sean-fireball.gif" />
+            <img id="super" src="http://www.fightersgeneration.com/characters3/sean_shoryuken.gif" />
+        </div>
+
+        <div class="Jogador2">
+            <img id="parado" src="http://www.fightersgeneration.com/characters2/makoto-stance.gif" />
+            <img id="chute" src="http://www.fightersgeneration.com/characters2/mak-skick3.gif" />
+            <img id="cabeca" src="http://www.fightersgeneration.com/characters2/makoto-spunch.gif" />
+            <img id="soco" src="http://www.fightersgeneration.com/characters2/mak-3punches.gif" />
+            <img id="super" src="http://www.fightersgeneration.com/characters2/mak-super1.gif" />
+        </div>
+    </div>
+
+    <div class="Chat" id="Conversa">
+        <h4>Chat Online</h4>
+        <ul id="incomingChatMessages"></ul>
+        <input type="text" id="outgoingChatMessage">
+    </div>
+
+    <button id="Iniciar">Entrar no Jogo</button>
+    <button id="Listar">Listar Jogadores</button>
+
+</body>
+</html>

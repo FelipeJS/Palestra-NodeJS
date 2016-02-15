@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Game</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style type="text/css">
+        body {
+            background-image: url('http://slateman.net/images/gaming/backgrounds/sfz3-dhalsim.gif');
+            background-size: 1900px auto;
+            background-position: bottom top;
+        }
+
+        #Container {
+            position: absolute;
+            top: 50%;
+            margin-top: -100px; /* ou seja ele pega 50% da altura tela e sobe metade do valor da altura no caso 100 */
+            left: 50%;
+            margin-left: -450px; /* ou seja ele pega 50% da largura tela e diminui  metade do valor da largura no caso 250 */
+        }
+
+        #Jogador1 {
+            width: 15em;
+            height: 15em;
+            margin-top: 100px;
+            position: fixed;
+        }
+
+        #Jogador2 {
+            width: 15em;
+            height: 15em;
+            position: fixed;
+            margin-top: 100px;
+            margin-left: 650px;
+            -webkit-transform: rotateY(180deg);
+        }
+
+        .Life {
+            position: fixed;
+            left: 50%;
+            margin-left: -400px;
+        }
+
+        #Life1 {
+            position: fixed;
+            border: 3px solid black;
+            border-radius: 4px;
+            height: 3em;
+            width: 25em;
+            background-color: #e61f1f;
+        }
+
+        #Life2 {
+            border: 3px solid black;
+            border-radius: 4px;
+            position: fixed;
+            margin-left: 450px;
+            margin-right: auto;
+            height: 3em;
+            width: 25em;
+            background-color: #e61f1f;
+        }
+
+        #Chat {
+            background-image: url('http://www.2expertsdesign.com/wp-content/uploads/2011/07/background-chat.jpg');
+            margin-top: 60px;
+            position: fixed;
+            margin-left: 60px;
+        }
+
+        span {
+            font-family: 'Comic Sans MS';
+            font: bold;
+            font-size: 2em;
+            padding: 5px 5px 7px 150px;
+            color: yellow;
+        }
+
+        input {
+            border: solid 1px #1dd7f1;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+            var iosocket = io.connect();
+
+            iosocket.on('connect', function () {
+                $('#incomingChatMessages').append($('<li>Connected</li>'));
+
+                iosocket.on('message', function (message) {
+                    $('#incomingChatMessages').append($('<li></li>').text(message));
+                });
+                iosocket.on('disconnect', function () {
+                    $('#incomingChatMessages').append('<li>Disconnected</li');
+                });
+            });
+
+            $('#outgoingChatMessage').keypress(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    iosocket.send($('#outgoingChatMessage').val());
+                    $('#incomingChatMessages').append($('<li></li>').text($('#outgoingChatMessage').val()));
+                    $('#outgoingChatMessage').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(document).keydown(function (key) {
+                switch (parseInt(key.which, 10)) {
+                    //ESQUERDA
+                    case 37:
+                        $('#Jogador1').animate({ "left": "-=3em" }, "fast");
+                        break;
+                        //CIMA
+                    case 38:
+                        $('#Jogador1').animate({ "top": "-=3em" }, "fast");
+                        break;
+                        //DIREITA
+                    case 39:
+                        $('#Jogador1').animate({ "left": "+=3em" }, "fast");
+                        break;
+                        //BAIXO
+                    case 40:
+                        $('#Jogador1').animate({ "top": "+=3em" }, "fast");
+                        break;
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="Life">
+        <div id="Life1"><span>Player 1</span></div>
+        <div id="Life2"><span>Player 2</span></div>
+    </div>
+    <div id="Container">
+        <img id="Jogador1" src="http://www.fightersgeneration.com/characters3/sean-ts-stance.gif " />
+        <img id="Jogador2" src="http://www.fightersgeneration.com/characters2/makoto-stance.gif" />
+    </div>
+    <div id="Chat">
+        Converse aki pelo Chat: <ul id="incomingChatMessages"></ul>
+        <input type="text" id="outgoingChatMessage">
+    </div>
+</body>
+</html>

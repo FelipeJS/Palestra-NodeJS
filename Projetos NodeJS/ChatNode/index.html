@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Chat</title>
+    
+    <style type="text/css">
+        body {background-color:#000000;}
+        input{border:solid 2px #1dd7f1; margin-left:3px; border-radius:4px;}
+        h3{padding:5px 30px 2px 50px; position:relative; margin:auto;}
+        #Chat {
+            background-color:aquamarine;
+            width:200px;
+            position:relative;
+            border-radius:4px;
+            border: 3px solid #00ff21;
+            margin:auto;
+        }  
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(function () {
+			var iosocket = io.connect();
+
+			iosocket.on('connect', function (){
+			    $('#incomingChatMessages').append($("<li> Connected</li>"));
+
+			    iosocket.on('message', function (message) {
+			        $('#incomingChatMessages').append($('<li></li>').text(message));
+			    });
+			});
+
+			$('#outgoingChatMessage').keypress(function (event) {
+			    if (event.which == 13) {
+			        event.preventDefault();
+			        iosocket.send($('#outgoingChatMessage').val());
+			        $('#incomingChatMessages').append($('<li></li>').text($('#outgoingChatMessage').val()));
+			        $('#outgoingChatMessage').val('');
+			    }
+			});
+        });
+    </script>
+</head>
+<body>
+    <div id="Chat">
+        <h3>Chat Web</h3> 
+        <ul id="incomingChatMessages"></ul>
+        <input type="text" id="outgoingChatMessage">
+    </div>
+</body>
+</html>
